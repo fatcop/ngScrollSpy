@@ -353,6 +353,14 @@ mod.directive('pageitems', function(ScrollSpy) {
 			return;
 		}
 		scope.spyElems = elem[0].getElementsByClassName(scope.selector); // dom items
+
+		// Prefix the page URL base URL to the id
+		if (angular.isDefined(scope.pageurl)) {
+			for (var i = 0; i < scope.spyElems.length; i++) {
+			    scope.spyElems[i].id = scope.pageurl + '#' + scope.spyElems[i].id;
+			}
+		}
+
 		scope.spies = {}; // menu items
 
 		// this function will be called once dom is parsed and menu is created
@@ -425,7 +433,8 @@ mod.directive('pageitems', function(ScrollSpy) {
 		restrict: 'A',
 		scope: {
 			selector: '@',
-			topmargin: '@'
+			topmargin: '@',
+			pageurl: '@'
 		},
 		link: linkfn
 	};
